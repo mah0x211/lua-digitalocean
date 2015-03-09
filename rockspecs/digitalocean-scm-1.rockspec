@@ -20,6 +20,7 @@ build = {
         ['digitalocean.unchangeable']   = 'lib/unchangeable.lua',
         ["digitalocean.api"]            = "api/api.lua",
         ["digitalocean.api.account"]    = "api/account.lua",
+        ["digitalocean.api.actions"]    = "api/actions.lua",
     }
 }
 

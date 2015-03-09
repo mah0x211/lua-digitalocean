@@ -20,14 +20,33 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   THE SOFTWARE.
    
-  api/api.lua
+  api/actions.lua
   lua-digitalocean
   
   Created by Masatoshi Teruya on 15/03/09.
   
 --]]
+-- class
+local Actions = require('halo').class.Actions;
 
-return {
-    account = require('digitalocean.api.account'),
-    actions = require('digitalocean.api.actions'),
+Actions.inherits {
+    'digitalocean.unchangeable.Unchangeable'
 };
+
+function Actions:init( cli )
+    protected(self).cli = cli;
+    
+    return self;
+end
+
+function Actions:getList( opts )
+    return protected(self).cli:get( '/actions', opts );
+end
+
+
+function Actions:get( id, opts )
+    return protected(self).cli:get( '/actions/' .. tostring(id), opts );
+end
+
+
+return Actions.exports;

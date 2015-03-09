@@ -39,6 +39,7 @@ function Records:init( cli, domain )
     
     own.cli = cli;
     own.baseURL = '/domains/' .. tostring( domain.name ) .. '/records';
+    own.name = domain.name;
     -- set properties
     for k, v in pairs( domain ) do
         rawset( self, k, v );

@@ -40,12 +40,12 @@ function Actions:init( cli )
 end
 
 function Actions:getList( opts )
-    return protected(self).cli:get( '/actions', opts );
+    return protected(self).cli:get( '/actions', nil, opts );
 end
 
 
 function Actions:get( id, opts )
-    return protected(self).cli:get( '/actions/' .. tostring(id), opts );
+    return protected(self).cli:get( '/actions/' .. tostring(id), nil, opts );
 end
 
 

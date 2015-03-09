@@ -42,7 +42,7 @@ function Client:__index( method )
     local own = protected( self );
     
     if own.cli[method] then
-        return function( _, uri, opts )
+        return function( _, uri, body, opts )
             if type( opts ) ~= 'table' then
                 opts = {
                     header = {};
@@ -54,6 +54,7 @@ function Client:__index( method )
             opts.header["Content-Type"] = "application/json";
             opts.header["Accept"] = "application/json";
             opts.header['Authorization'] = own.header;
+            opts.body = body;
             
             return own.cli[method](
                 own.cli, BASE_URI .. tostring( uri == nil and '' or uri ), opts

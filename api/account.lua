@@ -40,7 +40,7 @@ function Account:init( cli )
     return self;
 end
 
-function Account:info( opts )
+function Account:get( opts )
     return protected(self).cli:get( '/account', opts );
 end
 

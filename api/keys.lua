@@ -60,8 +60,10 @@ function Keys:create( body, opts )
 end
 
 
-function Keys:update( body, opts )
-    return protected(self).cli:put( '/account/keys', nil, body, opts );
+function Keys:update( id, body, opts )
+    return protected(self).cli:put(
+        '/account/keys/' .. tostring( id ), nil, body, opts
+    );
 end
 
 

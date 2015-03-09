@@ -31,6 +31,7 @@ return {
     account = require('digitalocean.api.account'),
     actions = require('digitalocean.api.actions'),
     domains = require('digitalocean.api.domains'),
+    images  = require('digitalocean.api.images'),
     keys    = require('digitalocean.api.keys'),
     regions = require('digitalocean.api.regions'),
     sizes   = require('digitalocean.api.sizes')

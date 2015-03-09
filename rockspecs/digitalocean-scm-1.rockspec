@@ -22,6 +22,7 @@ build = {
         ["digitalocean.api.account"]    = "api/account.lua",
         ["digitalocean.api.actions"]    = "api/actions.lua",
         ["digitalocean.api.domains"]    = "api/domains.lua",
+        ["digitalocean.api.images"]     = "api/images.lua",
         ["digitalocean.api.keys"]       = "api/keys.lua",
         ["digitalocean.api.regions"]    = "api/regions.lua",
         ["digitalocean.api.sizes"]      = "api/sizes.lua"

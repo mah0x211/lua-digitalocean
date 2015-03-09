@@ -41,7 +41,7 @@ function Account:init( cli )
 end
 
 function Account:get( opts )
-    return protected(self).cli:get( '/account', nil, opts );
+    return protected(self).cli:get( '/account', nil, nil, opts );
 end
 
 return Account.exports;

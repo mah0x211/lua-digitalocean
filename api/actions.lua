@@ -39,13 +39,16 @@ function Actions:init( cli )
     return self;
 end
 
-function Actions:getList( opts )
-    return protected(self).cli:get( '/actions', nil, opts );
+
+function Actions:getList( qry, opts )
+    return protected(self).cli:get( '/actions', qry, nil, opts );
 end
 
 
 function Actions:get( id, opts )
-    return protected(self).cli:get( '/actions/' .. tostring(id), nil, opts );
+    return protected(self).cli:get(
+        '/actions/' .. tostring(id), nil, nil, opts
+    );
 end
 
 

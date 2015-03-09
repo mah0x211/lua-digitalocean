@@ -59,7 +59,7 @@ end
 
 function Actions:selfUpdate( opts )
     local own = protected( self );
-    local res, err = own.cli:get( '/images/' .. own.id, nil, opts );
+    local res, err = own.cli:get( '/images/' .. own.id, nil, nil, opts );
     
     if res and res.status == 200 then
         -- set properties
@@ -72,18 +72,20 @@ function Actions:selfUpdate( opts )
 end
 
 
-function Actions:getList( opts )
-    return request( protected(self), 'get', '', nil, opts );
+function Actions:getList( qry, opts )
+    return request( protected(self), 'get', '', qry, nil, opts );
 end
 
 
 function Actions:get( id, opts )
-    return request( protected(self), 'get', '/' .. tostring( id ), nil, opts );
+    return request(
+        protected(self), 'get', '/' .. tostring( id ), nil, nil, opts
+    );
 end
 
 
 function Actions:tranfer( body, opts )
-    return request( protected(self), 'post', '', body, opts );
+    return request( protected(self), 'post', '', nil, body, opts );
 end
 
 
@@ -103,9 +105,9 @@ function Images:init( cli )
     return self;
 end
 
-function Images:getList( opts )
+function Images:getList( qry, opts )
     local own = protected( self );
-    local res, err = own.cli:get( '/images', nil, opts );
+    local res, err = own.cli:get( '/images', qry, nil, opts );
     
     if res and res.status == 200 then
         local actions = {};
@@ -122,7 +124,7 @@ end
 
 function Images:get( id, opts )
     local own = protected( self );
-    local res, err = own.cli:get( '/images/' .. tostring(id), nil, opts );
+    local res, err = own.cli:get( '/images/' .. tostring(id), nil, nil, opts );
     
     if res and res.status == 200 then
         res.body.image = Actions.new( own.cli, res.body.image );
@@ -134,7 +136,7 @@ end
 
 function Images:update( id, body, opts )
     local own = protected( self );
-    local res, err = own.cli:put( '/images/' .. tostring(id), body, opts );
+    local res, err = own.cli:put( '/images/' .. tostring(id), nil, body, opts );
     
     if res and res.status == 201 then
         res.body.image = Actions.new( own.cli, res.body.image );
@@ -145,7 +147,9 @@ end
 
 
 function Images:delete( id, opts )
-    return protected(self).cli:delete( '/images/' .. tostring(id), nil, opts );
+    return protected(self).cli:delete(
+        '/images/' .. tostring(id), nil, nil, opts
+    );
 end
 
 

@@ -49,16 +49,16 @@ function Records:init( cli, domain )
 end
 
 
-local function request( own, method, url, body, opts )
+local function request( own, method, url, qry, body, opts )
     return own.cli[method](
-        own.cli, own.baseURL .. url, body, opts
+        own.cli, own.baseURL .. url, qry, body, opts
     );
 end
 
 
 function Records:selfUpdate( opts )
     local own = protected( self );
-    local res, err = own.cli:get( '/domains/' .. own.name, nil, opts );
+    local res, err = own.cli:get( '/domains/' .. own.name, nil, nil, opts );
     
     if res and res.status == 200 then
         -- set properties
@@ -71,28 +71,34 @@ function Records:selfUpdate( opts )
 end
 
 
-function Records:getList( opts )
-    return request( protected(self), 'get', '', nil, opts );
+function Records:getList( qry, opts )
+    return request( protected(self), 'get', '', qry, nil, opts );
 end
 
 
 function Records:get( id, opts )
-    return request( protected(self), 'get', '/' .. tostring( id ), nil, opts );
+    return request(
+        protected(self), 'get', '/' .. tostring( id ), nil, nil, opts
+    );
 end
 
 
 function Records:create( body, opts )
-    return request( protected(self), 'post', '', body, opts );
+    return request( protected(self), 'post', '', nil, body, opts );
 end
 
 
 function Records:update( id, body, opts )
-    return request( protected(self), 'put', '/' .. tostring(id), body, opts );
+    return request(
+        protected(self), 'put', '/' .. tostring(id), nil, body, opts
+    );
 end
 
 
 function Records:delete( id, opts )
-    return request( protected(self), 'delete', '/' .. tostring(id), nil, opts );
+    return request(
+        protected(self), 'delete', '/' .. tostring(id), nil, nil, opts
+    );
 end
 
 Records = Records.exports;
@@ -111,9 +117,9 @@ function Domains:init( cli )
     return self;
 end
 
-function Domains:getList( opts )
+function Domains:getList( qry, opts )
     local own = protected( self );
-    local res, err = own.cli:get( '/domains', nil, opts );
+    local res, err = own.cli:get( '/domains', qry, nil, opts );
     
     if res and res.status == 200 then
         local records = {};
@@ -130,7 +136,9 @@ end
 
 function Domains:get( name, opts )
     local own = protected( self );
-    local res, err = own.cli:get( '/domains/' .. tostring(name), nil, opts );
+    local res, err = own.cli:get(
+        '/domains/' .. tostring(name), nil, nil, opts
+    );
     
     if res and res.status == 200 then
         res.body.domain = Records.new( own.cli, res.body.domain );
@@ -142,7 +150,7 @@ end
 
 function Domains:create( body, opts )
     local own = protected( self );
-    local res, err = own.cli:post( '/domains', body, opts );
+    local res, err = own.cli:post( '/domains', nil, body, opts );
     
     if res and res.status == 201 then
         res.body.domain = Records.new( own.cli, res.body.domain );
@@ -153,7 +161,9 @@ end
 
 
 function Domains:delete( name, opts )
-    return protected(self).cli:delete( '/domains/' .. tostring(name), nil, opts );
+    return protected(self).cli:delete(
+        '/domains/' .. tostring(name), nil, nil, opts
+    );
 end
 
 

@@ -43,31 +43,31 @@ function Keys:init( cli )
 end
 
 
-function Keys:getList( opts )
-    return protected(self).cli:get( '/account/keys', nil, opts );
+function Keys:getList( qry, opts )
+    return protected(self).cli:get( '/account/keys', qry, nil, opts );
 end
 
 
 function Keys:get( id, opts )
     return protected(self).cli:get(
-        '/account/keys/' .. tostring( id ), nil, opts
+        '/account/keys/' .. tostring( id ), nil, nil, opts
     );
 end
 
 
 function Keys:create( body, opts )
-    return protected(self).cli:post( '/account/keys', body, opts );
+    return protected(self).cli:post( '/account/keys', nil, body, opts );
 end
 
 
 function Keys:update( body, opts )
-    return protected(self).cli:put( '/account/keys', body, opts );
+    return protected(self).cli:put( '/account/keys', nil, body, opts );
 end
 
 
 function Keys:delete( id, opts )
     return protected(self).cli:delete(
-        '/account/keys/' .. tostring( id ), nil, opts
+        '/account/keys/' .. tostring( id ), nil, nil, opts
     );
 end
 

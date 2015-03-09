@@ -39,8 +39,8 @@ function Sizes:init( cli )
     return self;
 end
 
-function Sizes:getList( opts )
-    return protected(self).cli:get( '/sizes', nil, opts );
+function Sizes:getList( qry, opts )
+    return protected(self).cli:get( '/sizes', qry, nil, opts );
 end
 
 

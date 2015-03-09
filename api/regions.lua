@@ -39,8 +39,8 @@ function Regions:init( cli )
     return self;
 end
 
-function Regions:getList( opts )
-    return protected(self).cli:get( '/regions', nil, opts );
+function Regions:getList( qry, opts )
+    return protected(self).cli:get( '/regions', qry, nil, opts );
 end
 
 

@@ -20,17 +20,28 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   THE SOFTWARE.
    
-  api/api.lua
+  api/sizes.lua
   lua-digitalocean
   
   Created by Masatoshi Teruya on 15/03/09.
   
 --]]
+-- class
+local Sizes = require('halo').class.Sizes;
 
-return {
-    account = require('digitalocean.api.account'),
-    actions = require('digitalocean.api.actions'),
-    domains = require('digitalocean.api.domains'),
-    regions = require('digitalocean.api.regions'),
-    sizes   = require('digitalocean.api.sizes')
+Sizes.inherits {
+    'digitalocean.unchangeable.Unchangeable'
 };
+
+function Sizes:init( cli )
+    protected(self).cli = cli;
+    
+    return self;
+end
+
+function Sizes:getList( opts )
+    return protected(self).cli:get( '/sizes', nil, opts );
+end
+
+
+return Sizes.exports;

@@ -20,16 +20,28 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   THE SOFTWARE.
    
-  api/api.lua
+  api/regions.lua
   lua-digitalocean
   
   Created by Masatoshi Teruya on 15/03/09.
   
 --]]
+-- class
+local Regions = require('halo').class.Regions;
 
-return {
-    account = require('digitalocean.api.account'),
-    actions = require('digitalocean.api.actions'),
-    domains = require('digitalocean.api.domains'),
-    regions = require('digitalocean.api.regions'),
+Regions.inherits {
+    'digitalocean.unchangeable.Unchangeable'
 };
+
+function Regions:init( cli )
+    protected(self).cli = cli;
+    
+    return self;
+end
+
+function Regions:getList( opts )
+    return protected(self).cli:get( '/regions', nil, opts );
+end
+
+
+return Regions.exports;

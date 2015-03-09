@@ -30,4 +30,5 @@
 return {
     account = require('digitalocean.api.account'),
     actions = require('digitalocean.api.actions'),
+    domains = require('digitalocean.api.domains'),
 };

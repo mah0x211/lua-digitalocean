@@ -21,6 +21,7 @@ build = {
         ["digitalocean.api"]            = "api/api.lua",
         ["digitalocean.api.account"]    = "api/account.lua",
         ["digitalocean.api.actions"]    = "api/actions.lua",
+        ["digitalocean.api.domains"]    = "api/domains.lua",
     }
 }
 

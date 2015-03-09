@@ -39,7 +39,6 @@ function Actions:init( cli, image )
     
     own.cli = cli;
     own.baseURL = '/images/' .. tostring( image.id ) .. '/actions';
-    print( own.baseURL );
     own.id = image.id;
     -- set properties
     for k, v in pairs( image ) do

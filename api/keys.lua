@@ -20,18 +20,56 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   THE SOFTWARE.
    
-  api/api.lua
+  api/keys.lua
   lua-digitalocean
   
   Created by Masatoshi Teruya on 15/03/09.
   
 --]]
 
-return {
-    account = require('digitalocean.api.account'),
-    actions = require('digitalocean.api.actions'),
-    domains = require('digitalocean.api.domains'),
-    keys    = require('digitalocean.api.keys'),
-    regions = require('digitalocean.api.regions'),
-    sizes   = require('digitalocean.api.sizes')
+-- class
+local Keys = require('halo').class.Keys;
+
+
+Keys.inherits {
+    'digitalocean.unchangeable.Unchangeable'
 };
+
+
+function Keys:init( cli )
+    protected(self).cli = cli;
+    
+    return self;
+end
+
+
+function Keys:getList( opts )
+    return protected(self).cli:get( '/account/keys', nil, opts );
+end
+
+
+function Keys:get( id, opts )
+    return protected(self).cli:get(
+        '/account/keys/' .. tostring( id ), nil, opts
+    );
+end
+
+
+function Keys:create( body, opts )
+    return protected(self).cli:post( '/account/keys', body, opts );
+end
+
+
+function Keys:update( body, opts )
+    return protected(self).cli:put( '/account/keys', body, opts );
+end
+
+
+function Keys:delete( id, opts )
+    return protected(self).cli:delete(
+        '/account/keys/' .. tostring( id ), nil, opts
+    );
+end
+
+
+return Keys.exports;

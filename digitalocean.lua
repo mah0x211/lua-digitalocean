@@ -31,14 +31,14 @@ local API = require('digitalocean.api');
 -- constants
 local BASE_URI = 'https://api.digitalocean.com/v2';
 -- class
-local Client = require('halo').class.Client;
+local DigitalOcean = require('halo').class.DigitalOcean;
 
-Client.inherits {
+DigitalOcean.inherits {
     'digitalocean.unchangeable.Unchangeable'
 };
 
 
-function Client:__index( method )
+function DigitalOcean:__index( method )
     local own = protected( self );
     
     if own.cli[method] then
@@ -65,7 +65,7 @@ function Client:__index( method )
 end
 
 
-function Client:init( httpcli, token )
+function DigitalOcean:init( httpcli, token )
     local own = protected( self );
     local index = getmetatable( self ).__index;
     
@@ -87,9 +87,4 @@ function Client:init( httpcli, token )
     return self;
 end
 
-Client = Client.exports;
-
--- exports
-return {
-    client = Client
-};
+return DigitalOcean.exports;

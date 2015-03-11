@@ -51,10 +51,10 @@ function DigitalOcean:__index( method )
                 opts.header = {};
             end
             -- set headers
-            opts.header["Content-Type"] = "application/json";
             opts.header["Accept"] = "application/json";
             opts.header['Authorization'] = own.header;
             opts.query = query;
+            opts.enctype = "application/json";
             opts.body = body;
             
             return own.cli[method](
